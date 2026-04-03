@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Virtual Curator | Art Explorer</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>The Virtual Curator</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">My Collection</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="search-section">
+            <input type="text" id="search-input" placeholder="Search art (e.g., 'Van Gogh')...">
+            <button id="search-button">Search</button>
+        </section>
+
+        <section id="gallery" class="art-grid"></section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Percy Yarleque | Data provided by The Met Museum API</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
