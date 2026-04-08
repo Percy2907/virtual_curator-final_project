@@ -146,3 +146,88 @@ footer {
     color: #888; 
     font-size: 0.9rem;
 }
+
+/* --- Modal Styles --- */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: var(--bg-color);
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    border: 2px solid var(--accent-color);
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: var(--accent-color);
+}
+
+#modal-artist-name {
+    margin-bottom: 20px;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--accent-color);
+    padding-bottom: 10px;
+}
+
+#modal-bio-text {
+    margin-bottom: 25px;
+    line-height: 1.8;
+    color: #444;
+}
+
+#modal-link {
+    display: inline-block;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid var(--accent-color);
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+#modal-link:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.artist-link span {
+    transition: all 0.2s;
+}
+
+.artist-link span:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
