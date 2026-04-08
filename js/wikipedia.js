@@ -1,5 +1,4 @@
 export async function getArtistBio(artistName) {
-
     const searchName = encodeURIComponent(artistName);
     const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${searchName}`;
 

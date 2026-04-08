@@ -15,7 +15,6 @@ export async function searchArtworks(query) {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    
     return data.objectIDs ? data.objectIDs.slice(0, 10) : [];
   } catch (error) {
     console.error("Error searching:", error);
