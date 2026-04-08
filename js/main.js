@@ -8,6 +8,7 @@ const searchInput = document.querySelector('#search-input');
 // MODAL ELEMENTS
 const modal = document.querySelector('#bio-modal');
 const modalName = document.querySelector('#modal-artist-name');
+const modalArtTitle = document.querySelector('#modal-art-title');
 const modalBio = document.querySelector('#modal-bio-text');
 const modalLink = document.querySelector('#modal-link');
 const modalDate = document.querySelector('#modal-art-date');
@@ -20,6 +21,7 @@ async function openDetailedView(art) {
     const artistName = art.artistDisplayName;
     
     // Fill in technical details immediately
+    modalArtTitle.textContent = art.title || "Untitled";
     modalName.textContent = artistName || "Unknown Artist";
     modalDate.textContent = art.objectDate || "Unknown";
     modalMedium.textContent = art.medium || "Not specified";

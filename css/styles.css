@@ -160,6 +160,14 @@ nav a {
   cursor: pointer;
 }
 
+#modal-art-title {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #666;
+  margin-bottom: 15px;
+  font-family: 'Lato', sans-serif;
+}
+
 #art-technical-details {
   margin: 15px 0;
   padding: 10px;
