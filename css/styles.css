@@ -107,7 +107,6 @@ nav a {
   justify-content: center; 
   justify-items: center;
   width: 100%;
-  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -121,7 +120,6 @@ nav a {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  margin: 0 auto; 
 }
 
 .art-card:hover {
@@ -174,7 +172,7 @@ nav a {
   transform: scale(1.1);
 }
 
-/* MODAL SYSTEM */
+/* MODAL & LIGHTBOX SYSTEM */
 .modal {
   position: fixed;
   z-index: 1000;
@@ -182,7 +180,7 @@ nav a {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -212,6 +210,35 @@ nav a {
   cursor: pointer;
 }
 
+#modal-art-image {
+  max-width: 100%;
+  border-radius: 4px;
+  cursor: zoom-in;
+  transition: transform 0.3s ease;
+}
+
+#modal-art-image:hover {
+  transform: scale(1.02);
+}
+
+#lightbox {
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 2000;
+  cursor: zoom-out;
+}
+
+#lightbox-img {
+  max-height: 90vh;
+  max-width: 90vw;
+  border: 3px solid white;
+  animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
 #art-technical-details {
   margin: 15px 0;
   padding: 10px;
@@ -230,13 +257,13 @@ nav a {
   margin-top: 20px;
 }
 
-/* FEEDBACK */
+/* FEEDBACK & HEADERS */
 .feedback-msg {
-  grid-column: 1/-1;
   text-align: center;
   padding: 50px;
   font-size: 1.5rem;
   color: var(--accent-color);
+  width: 100%;
 }
 
 #gallery-title {
@@ -244,7 +271,6 @@ nav a {
   color: var(--text-color);
   border-left: 4px solid var(--accent-color);
   padding-left: 15px;
-  margin-bottom: 20px;
 }
 
 .btn-danger {
