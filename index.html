@@ -14,7 +14,7 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="#">My Collection</a></li>
+                    <li><a href="#" id="view-collection">My Collection</a></li>
                 </ul>
             </nav>
         </div>
@@ -24,6 +24,11 @@
         <section id="search-section">
             <input type="text" id="search-input" placeholder="Search art (e.g., 'Van Gogh')...">
             <button id="search-button">Search</button>
+        </section>
+
+        <section id="gallery-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 id="gallery-title">Art Gallery</h2>
+            <button id="clear-collection" class="btn-danger" style="display: none;">Clear All Collection</button>
         </section>
 
         <section id="gallery" class="art-grid"></section>
