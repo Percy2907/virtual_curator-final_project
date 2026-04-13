@@ -4,6 +4,7 @@ import { getArtistBio } from "./wikipedia.js";
 // --- DOM ELEMENTS ---
 const gallery = document.querySelector("#gallery");
 const searchBtn = document.querySelector("#search-button");
+const randomBtn = document.querySelector("#random-button");
 const searchInput = document.querySelector("#search-input");
 const viewCollectionBtn = document.querySelector("#view-collection");
 const clearCollectionBtn = document.querySelector("#clear-collection");
@@ -22,17 +23,10 @@ const closeBtn = document.querySelector(".close-btn");
 
 // --- LOCAL STORAGE LOGIC ---
 
-/**
- * Retrieves the favorites list from LocalStorage.
- * Returns an empty array if nothing is found.
- */
 function getFavorites() {
   return JSON.parse(localStorage.getItem("artFavorites")) || [];
 }
 
-/**
- * Adds or removes an artwork from the favorites list.
- */
 function toggleFavorite(art) {
   let favorites = getFavorites();
   const index = favorites.findIndex((fav) => fav.objectID === art.objectID);
@@ -69,20 +63,14 @@ async function openDetailedView(art) {
   }
 }
 
-closeBtn.onclick = () => {
-  modal.classList.add("hidden");
-};
+closeBtn.onclick = () => modal.classList.add("hidden");
 window.onclick = (e) => {
   if (e.target === modal) modal.classList.add("hidden");
 };
 
 // --- RENDERING LOGIC ---
 
-/**
- * Creates and appends an art card to the gallery.
- */
 function renderCard(art) {
-  // If art is null (due to a 404 error from the API), do nothing.
   if (!art || !art.objectID) return;
 
   const card = document.createElement("div");
@@ -113,7 +101,6 @@ function renderCard(art) {
     toggleFavorite(art);
     favBtn.classList.toggle("active");
 
-    // If in "My Collection" view, remove card immediately if un-favorited
     if (
       galleryTitle.textContent === "My Collection" &&
       !favBtn.classList.contains("active")
@@ -135,14 +122,12 @@ function renderCard(art) {
   gallery.appendChild(card);
 }
 
-/**
- * Handles the display of the user's saved collection.
- */
+// --- ACTIONS & EVENTS ---
+
 function showCollection() {
   const favorites = getFavorites();
   galleryTitle.textContent = "My Collection";
-  gallery.innerHTML = ""; // CRITICAL: Clear to avoid duplicates
-
+  gallery.innerHTML = "";
   if (favorites.length === 0) {
     gallery.innerHTML =
       '<div class="feedback-msg">Your collection is empty.</div>';
@@ -152,8 +137,6 @@ function showCollection() {
     favorites.forEach((art) => renderCard(art));
   }
 }
-
-// --- EVENT HANDLERS ---
 
 viewCollectionBtn.onclick = (e) => {
   e.preventDefault();
@@ -177,8 +160,6 @@ async function executeSearch() {
     '<div class="feedback-msg">Searching the gallery...</div>';
 
   const results = await searchArtworks(query);
-
-  // Clear gallery again to remove the "Searching" message before rendering results
   gallery.innerHTML = "";
 
   if (results.length === 0) {
@@ -189,22 +170,49 @@ async function executeSearch() {
 
   for (const id of results) {
     const artData = await fetchArtworkById(id);
-    // Defensive check: only render if fetch succeeded
     if (artData) renderCard(artData);
   }
 }
 
+// RANDOM DISCOVERY LOGIC
+async function discoverRandomArt() {
+  galleryTitle.textContent = "Discovering...";
+  gallery.innerHTML = '<div class="feedback-msg">Searching the vaults...</div>';
+  clearCollectionBtn.style.display = "none";
+
+  gallery.style.display = "flex";
+  gallery.style.justifyContent = "center";
+
+  let found = false;
+  let attempts = 0;
+
+  while (!found && attempts < 15) {
+    const randomId = Math.floor(Math.random() * 500000) + 1;
+    const artData = await fetchArtworkById(randomId);
+
+    if (artData && artData.primaryImageSmall) {
+      gallery.innerHTML = "";
+      galleryTitle.textContent = "Random Discovery";
+      renderCard(artData);
+      found = true;
+    }
+    attempts++;
+  }
+
+  if (!found) {
+    gallery.innerHTML = '<div class="feedback-msg">Try again!</div>';
+  }
+}
+
 searchBtn.onclick = executeSearch;
+randomBtn.onclick = discoverRandomArt;
 searchInput.onkeypress = (e) => {
   if (e.key === "Enter") executeSearch();
 };
 
-// --- INITIAL LOAD ---
-
+// INITIAL LOAD
 const initialIds = [436535, 436532, 436528, 437984, 436530, 436529];
-
 async function init() {
-  // Only load initial images if the title hasn't changed to "My Collection" or a search
   if (galleryTitle.textContent === "Art Gallery") {
     gallery.innerHTML = "";
     for (const id of initialIds) {
